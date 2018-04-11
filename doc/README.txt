@@ -73,10 +73,10 @@ A: public class StartOpenVPNActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-    	final String EXTRA_NAME = "de.blinkt.openvpn.api.profileName";
+    	final String EXTRA_NAME = "de.blinkt.openvpnsc.api.profileName";
 
         Intent shortcutIntent = new Intent(Intent.ACTION_MAIN);
-		shortcutIntent.setClassName("de.blinkt.openvpn", "de.blinkt.openvpn.api.ConnectVPN");
+		shortcutIntent.setClassName("de.blinkt.openvpnsc", "de.blinkt.openvpnsc.api.ConnectVPN");
 		shortcutIntent.putExtra(EXTRA_NAME,"upb ssl");
 		startActivity(shortcutIntent);
     }
@@ -84,7 +84,7 @@ A: public class StartOpenVPNActivity extends Activity {
 
 or from the shell:
 
-am start -a android.intent.action.MAIN -n de.blinkt.openvpn/.LaunchVPN -e de.blinkt.openvpn.shortcutProfileName Home
+am start -a android.intent.action.MAIN -n de.blinkt.openvpnsc/.LaunchVPN -e de.blinkt.openvpnsc.shortcutProfileName Home
 
 Q: How can I control the app from an external app?
 

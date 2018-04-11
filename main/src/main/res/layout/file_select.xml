@@ -33,9 +33,9 @@
 
     <Button
         android:id="@+id/file_clear_button"
+        style="@style/accountSetupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_toLeftOf="@id/file_select_button"
         android:visibility="gone"
         tools:visibility="visible"

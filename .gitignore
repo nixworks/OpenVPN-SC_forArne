@@ -2,6 +2,8 @@ build/
 main/libs/
 main/ovpnlibs/
 main/obj/
+main/src/main/jniLibs/
+external/
 .DS_Store
 .navigation
 google-breakpad/

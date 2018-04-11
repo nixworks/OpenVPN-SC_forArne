@@ -14,7 +14,7 @@
 
 #include "jniglue.h"
 
-jobjectArray Java_de_blinkt_openvpn_core_NativeUtils_getIfconfig(JNIEnv* env)
+jobjectArray Java_de_blinkt_openvpnsc_core_NativeUtils_getIfconfig(JNIEnv* env)
 {
 
 	int sd;
@@ -37,7 +37,7 @@ jobjectArray Java_de_blinkt_openvpn_core_NativeUtils_getIfconfig(JNIEnv* env)
     }
     
 
-    
+
 
     char buf[NI_MAXHOST];
     

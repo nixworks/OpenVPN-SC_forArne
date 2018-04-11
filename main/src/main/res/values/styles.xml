@@ -8,6 +8,12 @@
     <style name="blinkt.baseTheme" parent="android:Theme.DeviceDefault.Light" />
     <style name="blinkt" parent="blinkt.baseTheme" />
 
+    <style name="blinkt.AppCompat.baseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+    </style>
+
     <style name="blinkt.dialog" parent="android:Theme.DeviceDefault.Light.Dialog" />
 
     <style name="item">

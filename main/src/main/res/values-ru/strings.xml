@@ -5,7 +5,6 @@
   ~ Distributed under the GNU GPL v2 with additional terms. For full terms see the file doc/LICENSE.txt
   -->
 <resources>
-  <string name="app">OpenVPN для Android</string>
   <string name="address">Адрес сервера:</string>
   <string name="port">Порт сервера:</string>
   <string name="location">Расположение</string>
@@ -162,6 +161,7 @@
   <string name="broken_images">Сломанные прошивки</string>
   <string name="broken_images_faq">&lt;p&gt;Известно, что официальные прошивки HTC имеют странные проблемы с маршрутизацией, приводящей к тому, что трафик не идёт через туннель (см. &lt;a href=\"https://github.com/schwabe/ics-openvpn/issues/18\"&gt;Issue 18&lt;/a&gt; в баг-трекере).&lt;/p&gt;&lt;p&gt;Также сообщалось, что в старых официальных прошивках SONY от Xperia Arc S и Xperia Ray полностью отсутствует сервис VPNService (см. &lt;a href=\"https://github.com/schwabe/ics-openvpn/issues/29\"&gt;Issue 29&lt;/a&gt; в баг-трекере).&lt;/p&gt;&lt;p&gt;В некоторых неофициальных прошивках модуль tun может отсутствовать, или файл устройства /dev/tun может иметь неправильные права. Некоторые прошивки CM9 могут требовать исправления прав на /dev/tun в настройках «Хаки для данного устройства».&lt;/p&gt;&lt;p&gt;И самое главное: если у вас прошивка с указанными проблемами, сообщите об этом производителю устройства. Чем больше пользователей сообщит о проблеме, тем больше шансов, что производитель её исправит.&lt;/p&gt;</string>
   <string name="pkcs12_file_encryption_key">Файл PKCS12-ключа</string>
+  <string name="token_pin">ПИН-код токена</string>
   <string name="private_key_password">Пароль закрытого ключа</string>
   <string name="password">Пароль</string>
   <string name="file_icon">файл значка</string>
@@ -458,4 +458,14 @@
   <string name="all_app_prompt">Внешнее приложение пытается контролировать %s. Приложение, запрашивающее доступ, не может быть определено. Разрешение этого приложения предоставляет доступ всем приложениям.</string>
   <string name="openvpn3_nostatickeys">Реализация OpenVPN 3 C ++ не поддерживает статические ключи. Перейдите в OpenVPN 2.x под общие настройки.</string>
   <string name="openvpn3_pkcs12">Использование файлов PKCS12 напрямую с помощью OpenVPN 3 C ++ не поддерживается. Импортируйте файлы pkcs12 в хранилище ключей Android или замените OpenVPN 2.x на общие настройки.</string>
+  <string name="token_not_found">Токен не найден</string>
+  <string name="token">Токен</string>
+  <string name="token_certificate">Сертификат на токене</string>
+  <string name="choose_certificate">Выберите сертификат для VPN соединения</string>
+  <string name="rutoken_service_required">Требуется установка панели управления Рутокен.</string>
+  <string name="msg_install_rutoken_service">Требуется установка панели управления Рутокен для работы с токенами. Установить сейчас?</string>
+  <string name="msg_install_rutoken_service_on_connect">Для этого профиля установлена аутентификация по сертификату на токене. Требуется установка панели управления Рутокен для работы с токенами.</string>
+  <string name="install">Установить</string>
+  <string name="no_token_in_profile">Серийный номер токена не указан в профиле</string>
+  <string name="no_cert_in_profile">Сертификат не найден в профиле</string>
 </resources>

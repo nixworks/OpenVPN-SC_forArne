@@ -19,17 +19,24 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.android.support:support-annotations:27.1.0'
-    implementation 'com.android.support:cardview-v7:27.1.0'
-    implementation 'com.android.support:recyclerview-v7:27.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support:support-annotations:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
     //    compile 'ch.acra:acra:4.5.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    implementation 'net.java.dev.jna:jna:4.5.1@aar'
+    implementation project(':pkcs11wrapper')
+    implementation files('../external/pkcs11jna/java/pkcs11jna.jar')
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.16.0'
     testImplementation "org.robolectric:robolectric:3.7.1"
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
+    implementation 'org.bouncycastle:bcprov-jdk15on:1.59'
 
 }
 
@@ -59,7 +66,7 @@ android {
     buildToolsVersion '27.0.3'
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode = 157
         versionName = "0.7.4"
@@ -71,6 +78,12 @@ android {
                 //abiFilters "arm64-v8a"
             }
         }
+
+        ndk {
+            abiFilters "armeabi-v7a"
+        }
+
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
 
     externalNativeBuild {
@@ -101,18 +114,26 @@ android {
     }
 
     signingConfigs {
-        release
+        release {
+            storeFile project.hasProperty("keystorePath") ? file(project.property("keystorePath")) : null
+            storePassword project.hasProperty("keystorePass") ? project.property("keystorePass") : null
+            keyAlias project.hasProperty("keyAlias") ? project.property("keyAlias") : null
+            keyPassword project.hasProperty("keyPass") ? project.property("keyPass") : null
+        }
     }
 
     lintOptions {
         enable 'BackButton', 'EasterEgg', 'StopShip', 'IconExpectedSize', 'GradleDynamicVersion', 'NewerVersionAvailable'
         warning 'ImpliedQuantity', 'MissingQuantity'
-        disable 'MissingTranslation', 'UnsafeNativeCodeLocation'
+        disable 'MissingTranslation', 'UnsafeNativeCodeLocation', 'InvalidPackage'
     }
 
     buildTypes {
         release {
-            signingConfig signingConfigs.release
+            def hasSigningParameters = project.hasProperty("keystorePath") && project.property("keystorePath") != "" &&  \
+                                       project.hasProperty("keyAlias") && project.property("keyAlias") != "" &&  \
+                                       project.hasProperty("keystorePass") && project.hasProperty("keyPass")
+            signingConfig hasSigningParameters ? signingConfigs.release : null
         }
     }
 
@@ -138,18 +159,6 @@ android {
     }
 }
 
-// ~/.gradle/gradle.properties
-if (project.hasProperty('keystoreFile') &&
-        project.hasProperty('keystorePassword') &&
-        project.hasProperty('keystoreAliasPassword')) {
-    android.signingConfigs.release.storeFile = file(keystoreFile)
-    android.signingConfigs.release.storePassword = keystorePassword
-    android.signingConfigs.release.keyPassword = keystoreAliasPassword
-    android.signingConfigs.release.keyAlias = keystoreAlias
-} else {
-    android.buildTypes.release.signingConfig = null
-}
-
 // Ensure native build is run before assets, so assets are ready to be merged into the apk
 android.applicationVariants.all { variant ->
     variant.mergeAssets.dependsOn(variant.externalNativeBuildTasks)
@@ -163,4 +172,28 @@ android.applicationVariants.all { variant ->
 
     }
 
+}
+
+def requireFileInDirectory(String directory, String file) {
+    if (fileTree(dir: directory, include: '**/' + file).isEmpty()) {
+        throw new GradleException('Not found ' + file + ' in ' + directory + ' directory')
+    }
+}
+
+def copyFile(String file, String sourcePath, String destinationPath) {
+    requireFileInDirectory(sourcePath, file)
+    copy {
+        from sourcePath + '/' + file
+        into destinationPath
+    }
+}
+
+def copyFromBinaryDeps(String projectName, String architecture, String file, String destinationPath) {
+    def sourcePath = '../external/' + projectName + '/' + architecture + '/lib'
+    copyFile(file, sourcePath, destinationPath)
+}
+
+task copyNativeLibs() {
+    def jniFolder_armv7a = 'src/main/jniLibs/armeabi-v7a'
+    copyFromBinaryDeps('pkcs11ecp', 'android-armv7a', 'librtpkcs11ecp.so', jniFolder_armv7a)
 }

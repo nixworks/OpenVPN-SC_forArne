@@ -1,4 +1,4 @@
-package de.blinkt.openvpn.core;
+package de.blinkt.openvpnsc.core;
 
 import net.openvpn.ovpn3.ClientAPI_Config;
 import net.openvpn.ovpn3.ClientAPI_EvalConfig;
@@ -13,7 +13,7 @@ import net.openvpn.ovpn3.ClientAPI_TransportStats;
 
 import java.lang.Override;
 
-import de.blinkt.openvpn.VpnProfile;
+import de.blinkt.openvpnsc.VpnProfile;
 
 import android.content.Context;
 

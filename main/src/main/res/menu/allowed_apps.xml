@@ -4,11 +4,12 @@
   ~ Distributed under the GNU GPL v2 with additional terms. For full terms see the file doc/LICENSE.txt
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/app_search_widget"
-        android:actionViewClass="android.widget.SearchView"
         android:icon="@drawable/ic_search_white_24dp"
-        android:showAsAction="always"
-        android:title="@string/Search"/>
+        android:title="@string/Search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always" />
 </menu>
